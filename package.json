@@ -1,0 +1,23 @@
+{
+  "name": "sql_cms",
+  "version": "1.0.0",
+  "description": "Business content management system(cms) using backend development with Node.js, Inquirer, and MySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SarahLabrotLientz/SQL_CMS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SarahLabrotLientz/SQL_CMS/issues"
+  },
+  "homepage": "https://github.com/SarahLabrotLientz/SQL_CMS#readme",
+  "dependencies": {
+    "inquirer": "^8.2.0"
+  }
+}
