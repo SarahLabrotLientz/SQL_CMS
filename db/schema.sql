@@ -1,9 +1,9 @@
 /* To create database run the scripts in this file */
-DROP DATABASE employeeTracker_db;
+DROP DATABASE IF EXISTS employeeDB;;
 
-CREATE DATABASE employeeTracker_db;
+CREATE DATABASE employeeDB;
 
-USE employeeTracker_db;
+USE employeeDB;
 
 CREATE TABLE department(
 id INT AUTO_INCREMENT NOT NULL,
@@ -11,7 +11,9 @@ name VARCHAR(30) NOT NULL,
 PRIMARY KEY(id)
 );
 
-CREATE TABLE role (
+USE employeeDB;
+
+CREATE TABLE roles (
 id INT AUTO_INCREMENT NOT NULL,
 title VARCHAR(30) NOT NULL,
 salary DECIMAL NOT NULL,
@@ -19,7 +21,9 @@ department_id INT NOT NULL,
 PRIMARY KEY(id)
 );
 
-CREATE TABLE employee (
+USE employeeDB;
+
+CREATE TABLE employees (
 id INT AUTO_INCREMENT NOT NULL,
 first_name VARCHAR(30) NOT NULL,
 last_name VARCHAR(30) NOT NULL,
