@@ -1,6 +1,8 @@
+//all dependancies
+
 const inquirer = require("inquirer");
 const ctab = require("console.table");
-
+//function for table of contents
 async function main() {
     let option = await displayOptions();
 
@@ -40,7 +42,7 @@ async function main() {
             break;
     }
 }
-
+//function to display cms options
 function displayOptions() {
     return inquirer.prompt({
         name: "choice",
@@ -60,7 +62,7 @@ function displayOptions() {
         ]
     })
 }
-
+//functions to view results for chosen cms selection
 function viewAll(results) {
     console.table(results);
     main();
