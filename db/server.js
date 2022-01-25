@@ -82,3 +82,41 @@ function createRoleList(results) {
     return results.map(element => { return `${element.id}. ${element.title}` });
 }
 
+function addEmployee(roles, employees) {
+    let roleList = createRoleList(roles);
+    let empList = createEmployeeList(employees);
+    empList.push("none");
+    inquirer.prompt([
+        {
+            message: "Enter First name",
+            type: "input",
+            name: "first"
+        },
+        {
+            message: "Enter Last Name",
+            type: "input",
+            name: "last"
+        },
+        {
+            message: "Select Role",
+            type: "list",
+            choices: roleList,
+            name: "role"
+        },
+        {
+            message: "Select Manager",
+            type: "list",
+            choices: empList,
+            name: "manager"
+        }
+    ]).then(choices => {
+        if (choices.manager == "none") {
+            emp.createEmployee(choices.first, choices.last, getId(choices.role));
+        }
+        else {
+            emp.createEmployee(choices.first, choices.last, getId(choices.role), getId(choices.manager));
+        }
+        main();
+    })
+}
+
