@@ -61,3 +61,24 @@ function displayOptions() {
     })
 }
 
+function viewAll(results) {
+    console.table(results);
+    main();
+}
+
+function getId(str) {
+    return str.slice(0, str.indexOf('.'));
+}
+
+function createEmployeeList(results) {
+    return results.map(element => { return `${element.id}. ${element.first_name} ${element.last_name}` });
+}
+
+function createDepartmentList(results) {
+    return results.map(element => { return `${element.id}. ${element.name}` });
+}
+
+function createRoleList(results) {
+    return results.map(element => { return `${element.id}. ${element.title}` });
+}
+
