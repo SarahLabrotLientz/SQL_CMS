@@ -119,4 +119,48 @@ function addEmployee(roles, employees) {
         main();
     })
 }
+function addRole(departments) {
+    let departmentList = createDepartmentList(departments);
+    inquirer.prompt([
+        {
+            message: "Enter Role Title",
+            type: "input",
+            name: "title"
+        },
+        {
+            message: "Enter Salary",
+            type: "input",
+            name: "salary",
+            validate: function (input) {
+                if (isNaN(input)) {
+                    return "must be a number";
+                }
+                else {
+                    return true;
+                }
+            }
+        },
+        {
+            message: "Select Department",
+            type: "rawlist",
+            name: "department",
+            choices: departmentList
+        }
+    ]).then(choices => {
+        rol.createRole(choices.title, choices.salary, getId(choices.department));
+        main();
+    });
+}
+
+function addDepartment() {
+    inquirer.prompt({
+        message: "Enter Department Name",
+        type: "input",
+        name: "department"
+    }).then(choice => {
+        dept.createDepartment(choice.department);
+        main();
+    })
+}
+
 
