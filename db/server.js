@@ -1,7 +1,7 @@
 //all dependancies
 
 const inquirer = require("inquirer");
-const ctab = require("console.table");
+
 //function for table of contents
 async function main() {
     let option = await displayOptions();
