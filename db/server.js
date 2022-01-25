@@ -81,7 +81,7 @@ function createDepartmentList(results) {
 function createRoleList(results) {
     return results.map(element => { return `${element.id}. ${element.title}` });
 }
-
+//function to add a new employee with first name, last name, role and manager
 function addEmployee(roles, employees) {
     let roleList = createRoleList(roles);
     let empList = createEmployeeList(employees);
@@ -119,6 +119,8 @@ function addEmployee(roles, employees) {
         main();
     })
 }
+
+//function to add a new role to a department with a title, salary and department
 function addRole(departments) {
     let departmentList = createDepartmentList(departments);
     inquirer.prompt([
@@ -151,7 +153,7 @@ function addRole(departments) {
         main();
     });
 }
-
+//function to add a new department like "party committee"
 function addDepartment() {
     inquirer.prompt({
         message: "Enter Department Name",
@@ -162,7 +164,7 @@ function addDepartment() {
         main();
     })
 }
-
+//function to change role for the employees if they get promoted or let go
 function changeRole(roles, employees) {
     let empList = createEmployeeList(employees);
     let roleList = createRoleList(roles);
