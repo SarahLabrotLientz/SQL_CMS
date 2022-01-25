@@ -163,4 +163,32 @@ function addDepartment() {
     })
 }
 
+function changeRole(roles, employees) {
+    let empList = createEmployeeList(employees);
+    let roleList = createRoleList(roles);
 
+    inquirer.prompt([{
+        message: "Select which employee you would like to change",
+        name: "employee",
+        type: "rawlist",
+        choices: empList
+    },
+    {
+        message: "Select their new role",
+        name: "role",
+        type: "rawlist",
+        choices: roleList
+    }]).then(choices => {
+        emp.changeRole(getId(choices.employee), getId(choices.role));
+        main();
+    });
+}
+
+main();
+
+function endApp() {
+    console.log("Bye!");
+    emp.endConnection();
+    rol.endConnection();
+    dept.endConnection();
+}
