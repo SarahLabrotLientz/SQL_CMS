@@ -73,7 +73,7 @@ async function main() {
             changeRole(await rol.getAllRoles(), await db.getAllEmployees());
             break;
         case "View Roles By Department":
-            viewAll(await rol.rolesByDepartment());
+            rolesByDepartment();
             break;
         case "View All Employees By Role":
             employeesByRole();
@@ -126,4 +126,16 @@ function employeesByRole() {
         console.log('\n')
         console.table(rows)
         main()
-    }) }
+    }) 
+}
+
+
+    function rolesByDepartment() {
+        db.findRolesByDepartment()
+        .then(([rows]) => {
+            console.log('\n')
+            console.table(rows)
+            main()
+        }) 
+    }
+    

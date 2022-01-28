@@ -15,6 +15,7 @@ module.exports = {
             "SELECT * FROM roles"
         )
     },
+    //work with tutor ends
     
     findAllEmployees: () => {
         return db.promise().query(
@@ -29,8 +30,15 @@ module.exports = {
         )
         
     },
+
+    findRolesByDepartment: () => {
+        return db.promise().query(
+            ("Select * FROM roles, departments")
+        )
+        
+    },
 }
-//work with tutor ends
+
     
 
     
