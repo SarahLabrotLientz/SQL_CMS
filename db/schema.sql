@@ -33,3 +33,5 @@ PRIMARY KEY(id),
 FOREIGN KEY(manager_id) REFERENCES employees(id) ON DELETE SET NULL,
 FOREIGN KEY(role_id) REFERENCES roles(id) ON DELETE SET NULL
 ); 
+
+-- ask sujil why name is blue and if that matters when trying to add a department

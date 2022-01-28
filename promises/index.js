@@ -16,7 +16,7 @@ module.exports = {
         )
     },
     //work with tutor ends
-    
+
     findAllEmployees: () => {
         return db.promise().query(
             ("Select * FROM employees")
@@ -34,6 +34,14 @@ module.exports = {
     findRolesByDepartment: () => {
         return db.promise().query(
             ("Select * FROM roles, departments")
+        )
+        
+    },
+//ask sujil about adding to a department 
+
+    createDepartment: () => {
+        return db.promise().query(
+            ("Insert into departments (name) values(${name}")
         )
         
     },

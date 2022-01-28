@@ -61,11 +61,12 @@ async function main() {
             viewDepartments();
             break;
         case "Add Employee":
-            addEmployee(await rol.getAllRoles(), await db.getAllEmployees());
+            addEmployee();
             break;
         case "Add Role":
             addRole(await dept.getAllDepartments());
             break;
+            //ask sujil about adding to a department
         case "Add Department":
             addDepartment();
             break;
@@ -138,4 +139,25 @@ function employeesByRole() {
             main()
         }) 
     }
-    
+    //Add department ---Ask sujil about 
+    function addDepartment() {
+        db.addDep()
+        .then(([rows]) => {
+            console.log('\n')
+            console.table(rows)
+            main()
+        }) 
+    }
+
+    //or 
+
+    function addDepartment() {
+        inquirer.prompt({
+            message: "Enter Department Name",
+            type: "input",
+            name: "department"
+        }).then(choice => {
+            db.createDepartment(choice.department);
+            main();
+        })
+    }
