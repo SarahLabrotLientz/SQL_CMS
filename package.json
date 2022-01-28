@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/SarahLabrotLientz/SQL_CMS#readme",
   "dependencies": {
-    "inquirer": "^8.2.0"
+    "inquirer": "^8.2.0",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "cfonts": "^2.10.0"
   }
 }
