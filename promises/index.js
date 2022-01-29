@@ -2,7 +2,7 @@ const db = require("./connection")
 
 
 
-//work with tutor
+//ts
 module.exports = {
     findAllDepartments: () => {
         return db.promise().query(
@@ -15,7 +15,7 @@ module.exports = {
             "SELECT * FROM roles"
         )
     },
-    //work with tutor ends
+    //te
 
     findAllEmployees: () => {
         return db.promise().query(
@@ -42,6 +42,21 @@ module.exports = {
     createDepartment: () => {
         return db.promise().query(
             ("Insert into departments (name) values(${name}")
+        )
+        
+    },
+
+
+    createEmployee: () => {
+        return db.promise().query(
+            ("Insert into employees (name) values(${name}")
+        )
+        
+    },
+
+    updateEmployeeRole: () => {
+        return db.promise().query(
+            ("SELECT employees.first_name, employees.last_name, roles.title FROM employees, roles WHERE employees.role_id = roles.id")
         )
         
     },

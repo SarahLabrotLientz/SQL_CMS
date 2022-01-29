@@ -99,7 +99,7 @@ function getAllEmployees () {
     })
 }
 
-//tutor help starts
+//ts
 
 function viewDepartments() {
     db.findAllDepartments()
@@ -119,7 +119,7 @@ function viewRoles() {
         main()
     })
 }
-///tutor help ends
+//te
 
 function employeesByRole() {
     db.findByRole()
@@ -139,15 +139,15 @@ function employeesByRole() {
             main()
         }) 
     }
-    //Add department ---Ask sujil about 
-    function addDepartment() {
-        db.addDep()
-        .then(([rows]) => {
-            console.log('\n')
-            console.table(rows)
-            main()
-        }) 
-    }
+    // //Add department ---Ask sujil about 
+    // function addDepartment() {
+    //     db.addDep()
+    //     .then(([rows]) => {
+    //         console.log('\n')
+    //         console.table(rows)
+    //         main()
+    //     }) 
+    // }
 
     //or 
 
@@ -156,8 +156,19 @@ function employeesByRole() {
             message: "Enter Department Name",
             type: "input",
             name: "department"
-        }).then(choice => {
-            db.createDepartment(choice.department);
+        }).then(results => {
+            db.createDepartment(results.department);
+            main();
+        })
+    }
+//use results instead of choice???
+    function addEmployee() {
+        inquirer.prompt({
+            message: "Enter Employee Name",
+            type: "input",
+            name: "employee"
+        }).then(results => {
+            db.createEmployee(results.employees);
             main();
         })
     }
