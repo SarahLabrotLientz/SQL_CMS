@@ -55,14 +55,19 @@ module.exports = {
 
   
 
-    createDepartment: () => {
+    createDepartment: (dept_name) => {
         return db.promise().query(
-            ("Insert into departments (name) values(${name}")
+            (`Insert into departments (dept_name) values ('${dept_name}')`)
         )
         
     },
 
-
+    createRole: (title, salary, department_id) => {
+        return db.promise().query(
+            (`INSERT INTO roles (title, salary, department_id) VALUES ('${title}','${salary}','${department_id}'`)
+        )
+        
+    }
     
 
 }

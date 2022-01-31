@@ -76,7 +76,7 @@ async function main() {
             break;
 
         case "Add Role":
-            addRole(await dept.getAllDepartments());
+            addRole();
             break;
 
         case "View All Departments":
@@ -314,6 +314,8 @@ function addRole() {
         },
     ]).then(({ title, salary, department_id }) => {
     db.createRole(title, salary, department_id) 
+    }).then(() => {
+        main();
     })
 }
 
@@ -336,14 +338,35 @@ function viewDepartments() {
         console.log("You are now adding a department");
         inquirer.prompt([
         {
-            message: "Enter Department Name",
-            type: "input",
-            name: "departments"
-        }).then(({departments}) => {
-            return db.createDepartment(results.department);
-            main();
-        })
-    }
+        
+                type: "input",
+                name: "dept_name",
+                message: "Enter the new departments name",
+                validate: (dept_name) => {
+                  if (dept_name) {
+                    return true;
+                  } else {
+                    console.log("Must enter department name");
+                    return false;
+                  }
+                },
+              },
+
+            ]).then(({dept_name}) => {
+                 db.createDepartment(dept_name)
+                }).then(() => {
+                    main();
+   
+         
+    })
+}
+
+
+
+
+
+
+           
 
 
     
