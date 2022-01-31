@@ -54,31 +54,41 @@ async function main() {
         case "View All Employees":
             getAllEmployees();
             break;
-        case "View All Roles":
-            viewRoles()
-            break;
-        case "View All Departments":
-            viewDepartments();
-            break;
-        case "Add Employee":
-            addEmployee();
-            break;
-        case "Add Role":
-            addRole(await dept.getAllDepartments());
-            break;
-            //ask sujil about adding to a department
-        case "Add Department":
-            addDepartment();
-            break;
-        case "Update Employee Role":
-            changeRole(await rol.getAllRoles(), await db.getAllEmployees());
-            break;
-        case "View Roles By Department":
-            rolesByDepartment();
-            break;
+
         case "View All Employees By Role":
             employeesByRole();
             break;
+
+        case "Add Employee":
+            addEmployee();
+            break;
+
+        case "Update Employee Role":
+            updateRole();
+            break;
+
+        case "View All Roles":
+            viewRoles()
+            break;
+
+        case "View Roles By Department":
+            rolesByDepartment();
+            break;
+
+        case "Add Role":
+            addRole(await dept.getAllDepartments());
+            break;
+
+        case "View All Departments":
+            viewDepartments();
+            break;
+       
+       
+        case "Add Department":
+            addDepartment();
+            break;
+        
+        
         case "Quit":
             endApp();
             break;
@@ -99,27 +109,8 @@ function getAllEmployees () {
     })
 }
 
-//ts
 
-function viewDepartments() {
-    db.findAllDepartments()
-        .then(([rows]) => {
-            console.log('\n')
-            console.table(rows)
-            main();
-        })
-}
-
-function viewRoles() {
-    db.findAllRoles()
-    .then(([rows]) => {
-        let roles = rows 
-        console.log('\n')
-        console.table(roles)
-        main()
-    })
-}
-//te
+//Create function to view employees by role
 
 function employeesByRole() {
     db.findByRole()
@@ -130,45 +121,229 @@ function employeesByRole() {
     }) 
 }
 
+//Create function to add an employee
+function addEmployee() {
+    console.log("You are now ADDING an Employee");
+    inquirer.prompt([
+        {
+                type: "input",
+                name: "first_name",
+                message: "Enter the new employee's first name",
+                validate: (first_name) => {
+                  if (first_name) {
+                    return true;
+                  } else {
+                    console.log("Must enter First Name");
+                    return false;
+                  }
+                },
+              },
+        {
+                type: "input",
+                name: "last_name",
+                message: "Enter the new employee's last name",
+                validate: (last_name) => {
+                  if (last_name) {
+                    return true;
+                  } else {
+                    console.log("Must enter First Name");
+                    return false;
+                  }
+                },
+              },
+              {
+                type: "input",
+                name: "role_id",
+                message: "Enter the new employee's Role ID Number (1-4) ",
+                validate: (role_id) => {
+                  if (isNaN(role_id)) {
+                    console.log("Please enter a number between (1-4) for the Role's ID!");
+                    return false;
+                  } else if (!role_id) {
+                    console.log("Please enter a number between (1-4) for the Role's ID!");
+                    return false;
+                  } else {
+                    return true;
+                  }
+                },
+              },
+              {
+                type: "input",
+                name: "manager_id",
+                message: "Enter the new employee's Manager ID Number (1-4) ",
+                validate: (manager_id) => {
+                  if (isNaN(manager_id)) {
+                    console.log(
+                      "Please enter a number between 1-4 for the Manager's ID!"
+                    );
+                    return false;
+                  } else if (!manager_id) {
+                    console.log(
+                      "Please enter a number between 1-4 for the Manager's ID!"
+                    );
+                    return false;
+                  } else {
+                    return true;
+                  }
+                },
+              },
+      
+            ]).then(async (empObj) => {
+                // console.log(empObj)
+       let packet = await db.createEmployee(empObj.first_name, empObj.last_name, empObj.role_id, empObj.manager_id);
+    //    console.log(packet)
+    }).then(() =>{
+        main();   
+    })
+}
 
-    function rolesByDepartment() {
-        db.findRolesByDepartment()
+//Update Employee Role 
+function updateRole() {
+    console.log("updating")
+    db.findAllEmployees()
+        .then(([rows]) => {
+            let employees = rows ;
+            const empNewObj = employees.map(({id, first_name}) => ({
+                name: first_name,
+                value: id
+            }))
+            inquirer.prompt([
+                {
+                    type: "list",
+                    name: "employee_id",
+                    message: "Which employee is in need of updating",
+                    choices:empNewObj
+                }
+                ]).then(({employee_id}) => {
+                    db.findAllRoles()
+                        .then(([rows]) => {
+                            let roles = rows ;
+                            const roleNewObj = roles.map(({id, title}) => ({
+                                name: title,
+                                value: id
+                            }))
+
+                            inquirer.prompt([
+                                {
+                                    type: "list",
+                                    name: "role_id",
+                                    message: "Which role would you like for the employee",
+                                    choices: roleNewObj
+                                }
+                            ]).then(({role_id}) => {
+                                return db.updateEmployeeRole(employee_id, role_id);
+                            }).then(() => {
+                                main();
+                            })
+                        
+                        })
+                })
+        })
+}
+
+//Create function to view all roles 
+function viewRoles() {
+    db.findAllRoles()
+    .then(([rows]) => {
+        let roles = rows 
+        console.log('\n')
+        console.table(roles)
+        main()
+    })
+}
+
+//View roles by department
+function rolesByDepartment() {
+    db.findRolesByDepartment()
+    .then(([rows]) => {
+        console.log('\n')
+        console.table(rows)
+        main()
+    }) 
+}
+
+
+// Create function to add a role
+function addRole() {
+    console.log("You are now ADDING a Role");
+    inquirer.prompt([
+        {
+          type: "input",
+          name: "title",
+          message: "Enter new Job Title",
+          validate: (title) => {
+            if (title) {
+              return true;
+            } else {
+              console.log("Must enter a Title");
+              return false;
+            }
+          },
+        },
+        {
+          type: "input",
+          name: "salary",
+          message: "Enter the salary",
+          validate: (salary) => {
+            if (isNaN(salary)) {
+              console.log("Please enter a number for the salary");
+              return false;
+            } else if (!salary) {
+              console.log("Please enter a number for the salary");
+              return false;
+            } else {
+              return true;
+            }
+          },
+        },
+        {
+          type: "input",
+          name: "department_id",
+          message: "Enter the ID# (1-4) of the new Job's Department",
+          validate: (department_id) => {
+            if (isNaN(department_id)) {
+              console.log("Please enter a number between (1-4) for the Role's ID!");
+              return false;
+            } else if (!department_id) {
+              console.log("Please enter a number between (1-4) for the Role's ID!");
+              return false;
+            } else {
+              return true;
+            }
+          },
+        },
+    ]).then(({ title, salary, department_id }) => {
+    db.createRole(title, salary, department_id) 
+    })
+}
+
+
+
+//View All Departments
+function viewDepartments() {
+    db.findAllDepartments()
         .then(([rows]) => {
             console.log('\n')
             console.table(rows)
-            main()
-        }) 
-    }
-    // //Add department ---Ask sujil about 
-    // function addDepartment() {
-    //     db.addDep()
-    //     .then(([rows]) => {
-    //         console.log('\n')
-    //         console.table(rows)
-    //         main()
-    //     }) 
-    // }
+            main();
+        })
+}
 
-    //or 
+
+//Add a Department 
 
     function addDepartment() {
-        inquirer.prompt({
+        console.log("You are now adding a department");
+        inquirer.prompt([
+        {
             message: "Enter Department Name",
             type: "input",
-            name: "department"
-        }).then(results => {
-            db.createDepartment(results.department);
+            name: "departments"
+        }).then(({departments}) => {
+            return db.createDepartment(results.department);
             main();
         })
     }
-//use results instead of choice???
-    function addEmployee() {
-        inquirer.prompt({
-            message: "Enter Employee Name",
-            type: "input",
-            name: "employee"
-        }).then(results => {
-            db.createEmployee(results.employees);
-            main();
-        })
-    }
+
+
+    
