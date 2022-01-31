@@ -312,11 +312,16 @@ function addRole() {
             }
           },
         },
-    ]).then(({ title, salary, department_id }) => {
-    db.createRole(title, salary, department_id) 
-    }).then(() => {
-        main();
-    })
+
+           
+      ]).then(async (roleObj) => {
+        // console.log(empObj)
+let packet = await db.createRole(roleObj.title, roleObj.salary, roleObj.department_id);
+//    console.log(packet)
+}).then(() =>{
+main();   
+})
+    
 }
 
 

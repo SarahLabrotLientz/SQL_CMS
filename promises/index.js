@@ -64,7 +64,7 @@ module.exports = {
 
     createRole: (title, salary, department_id) => {
         return db.promise().query(
-            (`INSERT INTO roles (title, salary, department_id) VALUES ('${title}','${salary}','${department_id}'`)
+            (`INSERT INTO roles (title, salary, department_id) VALUES ('${title}','${salary}','${department_id}')`)
         )
         
     }
