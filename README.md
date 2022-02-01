@@ -7,10 +7,13 @@ I developed this application from scratch to give non-developers an easy way to 
 
 
 ### VIDEO DEMO
+  * Enjoy a video walkthrough of my backend cms here:
+
+     [SQL CMS VIDEO DEMO](https://watch.screencastify.com/v/WWa58kjBX4MilSudn3s3)
 
 
-    * Enjoy a video walkthrough of my backend cms here:
-     [SQL CMS VIDEO DEMO](https://watch.screencastify.com/v/WWa58kjBX4MilSudn3s3).
+  
+    
 
 
 
